@@ -7,24 +7,22 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return MyAppState();
-  }
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyAppState extends State {
-  var _questions = [
+class _MyAppState extends State<MyApp> {
+  var _questions = const [
     {
-      'questionText': 'What is the currency used in Rwanda?',
-      'answers': ['Rwandan Franc', 'USD', 'Naira', 'Euro'],
+      'questionText': 'What is the brand of your laptop?',
+      'answers': ['Apple', 'Samsung', 'Acer', 'Lenovo', 'HP']
     },
     {
-      'questionText': 'What is the best Football club in the world?',
-      'answers': ['Paris Saint Germain', 'Real Madrid', 'TP Mazembe'],
+      'questionText': 'What is the currency used in Rwanda?',
+      'answers': ['Rwandan Franc', 'Rupee', 'Cedis', 'USD']
     },
     {
       'questionText': 'Who is the richest man in the world?',
-      'answers': ['Boris Kayi', 'Dangote', 'Jeff Bezos', 'Bill Gate'],
+      'answers': ['Georges Clooney', 'Boris Kayi', 'Jeff Bezos']
     },
   ];
 
@@ -38,18 +36,26 @@ class MyAppState extends State {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: Text('Kweez'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Question(this._questions[this._questionIndex]['questionText']),
-          ...(this._questions[this._questionIndex]['answers'] as List<String>).map((answer) {
-            return Answer(answer, this._answerHandler);
-          }),
-        ],
-      ),
-    ));
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Kweez'),
+            backgroundColor: Colors.orange,
+          ),
+          body: this._questionIndex < this._questions.length
+              ? Column(
+                  children: <Widget>[
+                    Question(
+                        this._questions[this._questionIndex]['questionText']),
+                    ...(this._questions[this._questionIndex]['answers']
+                            as List<String>)
+                        .map((answer) {
+                      return Answer(this._answerHandler, answer);
+                    })
+                  ],
+                )
+              : Center(
+                  child: Text('Awesome', style: TextStyle(fontSize: 20, color: Colors.orange)),
+                )),
+    );
   }
 }

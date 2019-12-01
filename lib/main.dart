@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './kweez.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -42,20 +42,12 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.orange,
           ),
           body: this._questionIndex < this._questions.length
-              ? Column(
-                  children: <Widget>[
-                    Question(
-                        this._questions[this._questionIndex]['questionText']),
-                    ...(this._questions[this._questionIndex]['answers']
-                            as List<String>)
-                        .map((answer) {
-                      return Answer(this._answerHandler, answer);
-                    })
-                  ],
+              ? Kweez(
+                  questions: _questions,
+                  questionIndex: _questionIndex,
+                  answerHandler: _answerHandler,
                 )
-              : Center(
-                  child: Text('Awesome', style: TextStyle(fontSize: 20, color: Colors.orange)),
-                )),
+              : Result()),
     );
   }
 }
